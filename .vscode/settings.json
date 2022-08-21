@@ -1,0 +1,10 @@
+{
+    "cSpell.words": [
+        "actix",
+        "deadpool",
+        "postgres",
+        "serde",
+        "todos",
+        "tokio"
+    ]
+}
