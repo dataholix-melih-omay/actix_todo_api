@@ -1,6 +1,5 @@
 use actix_web::{get, Responder, HttpResponse};
-
-use crate::models::Status;
+use crate::models::todo_items_model::Status;
 
 #[get("/health")]
 pub async fn health() -> impl Responder {

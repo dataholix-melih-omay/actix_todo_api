@@ -17,7 +17,6 @@ pub fn log_error(logger: Logger) -> Box<dyn Fn(AppError) -> AppError> {
     })
 }
 
-
 // DB Pool Connection Management and error handling
 async fn get_client(db_pool: Pool, logger: Logger) -> Result<Client, AppError> {
     db_pool.get().await.map_err( |err| {

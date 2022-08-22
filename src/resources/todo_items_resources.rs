@@ -1,7 +1,8 @@
-use crate::{ models::{ AppState, ResultResponse, }, db, errors::AppError, resources::{get_client, log_error}};
+use crate::models::todo_items_model::{ AppState, ResultResponse, };
+use crate::{  db, errors::AppError, resources::{get_client, log_error}};
 use actix_web::{ Responder, HttpResponse, web, get, put };
 use deadpool_postgres::{ Client, };
-use slog::{o,};
+use slog::{ o, };
 
 #[get("/todos/{list_id}/items")]
 pub async fn index(app_state: web::Data<AppState>, path: web::Path<(i32,)>) -> Result<impl Responder, AppError> {

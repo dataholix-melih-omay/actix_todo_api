@@ -1,4 +1,4 @@
-use crate::{ models::{ CreateTodoList, AppState, }, db, errors::AppError, resources::{get_client, log_error}};
+use crate::{ models::todo_items_model::{ CreateTodoList, AppState, }, db, errors::AppError, resources::{get_client, log_error}};
 use actix_web::{ Responder, HttpResponse, web, get, post, };
 use deadpool_postgres::{ Client};
 use slog::o;

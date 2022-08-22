@@ -1,8 +1,9 @@
 mod config;
-mod models;
+
 mod resources;
 mod errors;
 mod db;
+mod models;
 
 use actix_web::web::Data;
 use actix_web::{ HttpServer, App};
@@ -15,7 +16,7 @@ use slog_term;
 use slog_async;
 
 use crate::config::Config;
-use crate::models::AppState;
+use crate::models::todo_items_model::AppState;
 use crate::resources::{todo_items_resources, todo_resource, health_resource};
 
 fn configure_log () -> Logger {
@@ -51,6 +52,7 @@ async fn main() -> std::io::Result<()> {
         ))
         // * Todos resources
         .service(health_resource::health)
+
         // * Todos resources
         .service(todo_resource::index)
         .service(todo_resource::create)
@@ -58,9 +60,8 @@ async fn main() -> std::io::Result<()> {
         // * Todo->Items resources
         .service(todo_items_resources::index)
         .service(todo_items_resources::check_item)
-
     })
-    .bind( format!("{}:{}", host, port))?
-    .run()
-    .await
+        .bind( format!("{}:{}", host, port))?
+        .run()
+        .await
 }

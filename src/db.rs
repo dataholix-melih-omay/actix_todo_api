@@ -1,4 +1,4 @@
-use crate::{models::{TodoList, TodoItem}, errors::{AppError, AppErrorType}};
+use crate::{ models::todo_items_model::{TodoList, TodoItem}, errors::{AppError, AppErrorType}};
 use deadpool_postgres::Client;
 use tokio_pg_mapper::FromTokioPostgresRow;
 
