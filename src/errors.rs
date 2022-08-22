@@ -64,3 +64,35 @@ impl ResponseError for AppError {
     }
 
 }
+
+#[cfg(test)]
+mod test {
+    use super::{ AppError, AppErrorType };
+    #[test]
+    fn test_default_message() {
+        let db_error = AppError {
+            message: None,
+            cause: None,
+            error_type: AppErrorType::DbError
+        };
+        assert_eq!(
+            db_error.message(),
+            "An unexpected error has occurred",
+            "Es muss der Standard (Default) Nachricht angezeigt werden",
+        );
+    }
+    #[test]
+    fn test_custom_message() {
+        let custom_message = "Unable to create item".to_string();
+        let db_error = AppError {
+            message: Some(custom_message.clone()),
+            cause: None,
+            error_type: AppErrorType::DbError
+        };
+        assert_eq!(
+            db_error.message(),
+            custom_message,
+            "Benutzer seitige Meldungen sollten angezeigt werden",
+        );
+    }
+}
