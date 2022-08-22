@@ -4,10 +4,9 @@ mod resources;
 mod errors;
 mod db;
 
-use resources::todo_resource;
 use actix_web::web::Data;
 use actix_web::{ HttpServer, App};
-use deadpool_postgres::{ Runtime };
+use deadpool_postgres::Runtime;
 use deadpool_postgres::tokio_postgres::NoTls;
 
 use dotenv::dotenv;
@@ -17,7 +16,7 @@ use slog_async;
 
 use crate::config::Config;
 use crate::models::AppState;
-use crate::resources::todo_items_resources;
+use crate::resources::{todo_items_resources, todo_resource, health_resource};
 
 fn configure_log () -> Logger {
     let decorator = slog_term::TermDecorator::new().build();
@@ -51,7 +50,8 @@ async fn main() -> std::io::Result<()> {
             }
         ))
         // * Todos resources
-        .service(todo_resource::health)
+        .service(health_resource::health)
+        // * Todos resources
         .service(todo_resource::index)
         .service(todo_resource::create)
 

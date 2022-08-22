@@ -1,8 +1,8 @@
 use deadpool_postgres::{Pool, Client};
 use slog::{crit, error, Logger, o};
-
 use crate::errors::AppError;
 
+pub mod health_resource;
 pub mod todo_resource;
 pub mod todo_items_resources;
 

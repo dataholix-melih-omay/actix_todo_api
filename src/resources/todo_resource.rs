@@ -1,15 +1,7 @@
-use crate::{ models::{Status, CreateTodoList, AppState, }, db, errors::AppError, resources::{get_client, log_error}};
+use crate::{ models::{ CreateTodoList, AppState, }, db, errors::AppError, resources::{get_client, log_error}};
 use actix_web::{ Responder, HttpResponse, web, get, post, };
 use deadpool_postgres::{ Client};
 use slog::o;
-
-
-#[get("/health")]
-async fn health() -> impl Responder {
-    HttpResponse::Ok()
-    .json( Status { status: "Ok".to_string() })
-}
-
 
 #[get("/todos")]
 pub async fn index(app_state: web::Data<AppState>) -> Result<impl Responder, AppError> {
