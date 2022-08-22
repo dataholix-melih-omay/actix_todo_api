@@ -1,9 +1,10 @@
 mod config;
 mod models;
-mod handlers;
+mod resources;
 mod errors;
 mod db;
 
+use resources::todo_resource;
 use actix_web::web::Data;
 use actix_web::{ HttpServer, App};
 use deadpool_postgres::{ Runtime };
@@ -16,6 +17,7 @@ use slog_async;
 
 use crate::config::Config;
 use crate::models::AppState;
+use crate::resources::todo_items_resources;
 
 fn configure_log () -> Logger {
     let decorator = slog_term::TermDecorator::new().build();
@@ -48,11 +50,15 @@ async fn main() -> std::io::Result<()> {
                 log: log.clone(),
             }
         ))
-        .service(handlers::health)
-        .service(handlers::index)
-        .service(handlers::show)
-        .service(handlers::create)
-        .service(handlers::check_item)
+        // * Todos resources
+        .service(todo_resource::health)
+        .service(todo_resource::index)
+        .service(todo_resource::create)
+
+        // * Todo->Items resources
+        .service(todo_items_resources::index)
+        .service(todo_items_resources::check_item)
+
     })
     .bind( format!("{}:{}", host, port))?
     .run()

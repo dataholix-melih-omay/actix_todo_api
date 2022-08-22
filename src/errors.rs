@@ -26,20 +26,21 @@ impl AppError {
         match &*self {
             AppError {
                 message: Some(message),
-                cause: _, error_type: _
+                cause: _,
+                error_type: _,
             } => message.clone(),
 
             AppError {
                 message: None,
                 cause: _,
-                error_type: AppErrorType::NotFoundError
+                error_type: AppErrorType::NotFoundError,
             } => "The requested item not found".to_string(),
             _ => "An unexpected error has occurred".to_string(),
         }
     }
 
     pub fn db_error(error: impl ToString) -> Self {
-        Self { message: None, cause: Some(error.to_string()), error_type: AppErrorType::DbError }
+        Self { message: None, cause: Some(error.to_string()), error_type: AppErrorType::DbError, }
     }
 }
 
